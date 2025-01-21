@@ -1,0 +1,13 @@
+:root {
+  --bg: #313338;
+  --fff: #FFF;
+}
+
+body {
+  display: flex;
+  place-items: center;
+  background: var(--bg);
+  color: var(--fff);
+  width: 100vw;
+  height: 100vh;
+}
