@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import ClockCustom from './ClockCustom.vue';
-import type { iTimeTypes } from './TimeInterface.ts';
+import CustomClock from './CustomClock.vue';
 
 const customizationRef = ref();
-const currentTime = ref<iTimeTypes>(getFormattedTime());
+const currentTime = ref(getFormattedTime());
 
-function getFormattedTime(): iTimeTypes {
+function getFormattedTime() {
   const now = new Date();
   return {
     hour: now.getHours().toString().padStart(2, '0'),
@@ -31,13 +30,18 @@ onUnmounted(() => {
 
 <template>
   <div class="clock-container">
-    <ClockCustom ref="customizationRef" />
+    <CustomClock ref="customizationRef"/>
     <span
       class="clock-text"
-      :class="{'image-bg': customizationRef?.backgroundChoice === 'image'}"
       :style="customizationRef?.styles"
     >
-      {{ currentTime.hour }}:{{ currentTime.minute }}
+
+      {{ currentTime.hour }}
+
+      <span class="time-space"> : </span>
+
+      {{ currentTime.minute }}
+
     </span>
   </div>
 </template>
@@ -47,7 +51,12 @@ onUnmounted(() => {
   font-family: 'Arial', sans-serif;
 }
 
+.time-space {
+  margin-left: var(--margin-space);
+  margin-right: var(--margin-space);
+}
+
 .clock-text {
-  font-size: 5em;
+  font-size: 10rem;
 }
 </style>
