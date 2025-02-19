@@ -1,0 +1,14 @@
+:root {
+  --bg: #313338;
+  --fff: #FFF;
+  --margin-space: -1rem;
+}
+
+body {
+  background: var(--bg);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}

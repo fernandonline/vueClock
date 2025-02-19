@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import CustomClock from './CustomClock.vue';
 
-const customizationRef = ref();
+const {customStyles} = defineProps<{
+  customStyles: Record<string, string>;
+}>();
+
 const currentTime = ref(getFormattedTime());
 
 function getFormattedTime() {
@@ -15,25 +17,22 @@ function getFormattedTime() {
 
 const updateTime = () => {
   currentTime.value = getFormattedTime();
-}
+};
 
 let intervalId: number | undefined;
-
 onMounted(() => {
   intervalId = setInterval(updateTime, 1000);
-})
-
+});
 onUnmounted(() => {
   if (intervalId) clearInterval(intervalId);
-})
+});
 </script>
 
 <template>
   <div class="clock-container">
-    <CustomClock ref="customizationRef"/>
     <span
       class="clock-text"
-      :style="customizationRef?.styles"
+      :style="customStyles"
     >
 
       {{ currentTime.hour }}
@@ -48,7 +47,12 @@ onUnmounted(() => {
 
 <style scoped>
 .clock-container {
+  border: 1px solid yellowgreen;
   font-family: 'Arial', sans-serif;
+  height: 90vh;
+  display: flex;
+  place-content: center;
+  align-items: center;
 }
 
 .time-space {
@@ -57,6 +61,7 @@ onUnmounted(() => {
 }
 
 .clock-text {
+  margin-top: -10svh;
   font-size: 10rem;
 }
 </style>
